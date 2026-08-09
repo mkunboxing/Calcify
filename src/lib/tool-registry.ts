@@ -1,0 +1,755 @@
+export type MaintenanceClass =
+  | "evergreen"
+  | "rule-dependent"
+  | "data-dependent"
+  | "health-disclaimer";
+
+export type DisclaimerType = "health" | "finance" | "tax" | "security";
+
+export type ToolDefinition = {
+  slug: string;
+  type: "calculator" | "utility";
+  category: string;
+  categorySlug: string;
+  title: string;
+  shortDescription: string;
+  componentKey: string;
+  maintenanceClass: MaintenanceClass;
+  disclaimerType?: DisclaimerType;
+  related: string[];
+  seo: { title: string; description: string };
+  publishState: "draft" | "published" | "noindex";
+  icon: string;
+};
+
+export const TOOLS: ToolDefinition[] = [
+
+  // ── Finance & Investment ─────────────────────────────────────────
+  {
+    slug: "percentage-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Percentage Calculator", shortDescription: "Calculate percentages, percentage change, and percentage of a number instantly.",
+    componentKey: "PercentageCalculator", maintenanceClass: "evergreen",
+    related: ["discount-calculator", "gst-calculator", "ratio-calculator"],
+    seo: { title: "Percentage Calculator — Calculate % of a Number | Calcify", description: "Free percentage calculator. Find what percent one number is of another, calculate percentage increase/decrease." },
+    publishState: "published", icon: "%",
+  },
+  {
+    slug: "emi-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "EMI Calculator", shortDescription: "Calculate monthly EMI for home, car, or personal loans with total interest.",
+    componentKey: "EMICalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["sip-calculator", "compound-interest-calculator", "loan-prepayment-calculator"],
+    seo: { title: "EMI Calculator — Loan Monthly EMI | Calcify", description: "Free EMI calculator for home, car and personal loans. Shows monthly EMI, total interest, and total payable amount." },
+    publishState: "published", icon: "🏦",
+  },
+  {
+    slug: "sip-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "SIP Calculator", shortDescription: "Estimate monthly SIP investment returns and maturity value.",
+    componentKey: "SIPCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["emi-calculator", "lumpsum-calculator", "cagr-calculator"],
+    seo: { title: "SIP Calculator — Estimate SIP Returns | Calcify", description: "Calculate SIP maturity value, invested amount, and estimated returns for your mutual fund SIP investments." },
+    publishState: "published", icon: "📈",
+  },
+  {
+    slug: "compound-interest-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Compound Interest Calculator", shortDescription: "Calculate compound interest with flexible compounding frequency.",
+    componentKey: "CompoundInterestCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["simple-interest-calculator", "fd-calculator", "sip-calculator"],
+    seo: { title: "Compound Interest Calculator | Calcify", description: "Calculate compound interest for any principal, rate, time and compounding frequency." },
+    publishState: "published", icon: "💰",
+  },
+  {
+    slug: "simple-interest-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Simple Interest Calculator", shortDescription: "Calculate simple interest and total amount for any principal, rate and time.",
+    componentKey: "SimpleInterestCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["compound-interest-calculator", "fd-calculator", "emi-calculator"],
+    seo: { title: "Simple Interest Calculator — SI Formula | Calcify", description: "Calculate simple interest (SI = P×R×T/100) and total amount payable. Free online SI calculator." },
+    publishState: "published", icon: "🔢",
+  },
+  {
+    slug: "fd-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "FD Calculator", shortDescription: "Calculate Fixed Deposit maturity amount and interest earned.",
+    componentKey: "FDCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["rd-calculator", "compound-interest-calculator", "sip-calculator"],
+    seo: { title: "FD Calculator — Fixed Deposit Maturity Calculator | Calcify", description: "Calculate FD maturity amount and total interest for your fixed deposit with quarterly/annual compounding." },
+    publishState: "published", icon: "🏧",
+  },
+  {
+    slug: "rd-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "RD Calculator", shortDescription: "Calculate Recurring Deposit maturity value and interest earned.",
+    componentKey: "RDCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["fd-calculator", "sip-calculator", "compound-interest-calculator"],
+    seo: { title: "RD Calculator — Recurring Deposit Calculator | Calcify", description: "Calculate recurring deposit maturity amount and interest earned for your RD with quarterly compounding." },
+    publishState: "published", icon: "🔄",
+  },
+  {
+    slug: "lumpsum-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Lumpsum Investment Calculator", shortDescription: "Calculate future value of a one-time lumpsum investment.",
+    componentKey: "LumpsumCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["sip-calculator", "cagr-calculator", "compound-interest-calculator"],
+    seo: { title: "Lumpsum Calculator — One-Time Investment Returns | Calcify", description: "Calculate the future value of a lumpsum mutual fund investment at an expected annual return rate." },
+    publishState: "published", icon: "💼",
+  },
+  {
+    slug: "cagr-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "CAGR Calculator", shortDescription: "Calculate Compound Annual Growth Rate from beginning and ending values.",
+    componentKey: "CAGRCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["roi-calculator", "lumpsum-calculator", "inflation-calculator"],
+    seo: { title: "CAGR Calculator — Compound Annual Growth Rate | Calcify", description: "Calculate CAGR from beginning value, ending value, and number of years. Free online CAGR calculator." },
+    publishState: "published", icon: "📊",
+  },
+  {
+    slug: "roi-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "ROI Calculator", shortDescription: "Calculate Return on Investment as a percentage.",
+    componentKey: "ROICalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["cagr-calculator", "profit-margin-calculator", "breakeven-calculator"],
+    seo: { title: "ROI Calculator — Return on Investment | Calcify", description: "Calculate ROI percentage from investment cost and net profit. Free return on investment calculator." },
+    publishState: "published", icon: "🎯",
+  },
+  {
+    slug: "gst-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "GST Calculator", shortDescription: "Add or remove GST from any amount with Indian GST rates.",
+    componentKey: "GSTCalculator", maintenanceClass: "evergreen",
+    related: ["discount-calculator", "profit-margin-calculator", "markup-calculator"],
+    seo: { title: "GST Calculator — Add or Remove GST | Calcify", description: "Quickly calculate GST inclusive or exclusive amounts. Supports all Indian GST slabs: 5%, 12%, 18%, 28%." },
+    publishState: "published", icon: "🧾",
+  },
+  {
+    slug: "discount-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Discount Calculator", shortDescription: "Calculate final price after discount and total savings.",
+    componentKey: "DiscountCalculator", maintenanceClass: "evergreen",
+    related: ["gst-calculator", "profit-margin-calculator", "markup-calculator"],
+    seo: { title: "Discount Calculator — Final Price After Discount | Calcify", description: "Find final price after discount, savings amount, and effective discount percentage." },
+    publishState: "published", icon: "🏷️",
+  },
+  {
+    slug: "profit-margin-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Profit Margin Calculator", shortDescription: "Calculate gross profit, net profit margin, and markup percentage.",
+    componentKey: "ProfitMarginCalculator", maintenanceClass: "evergreen",
+    related: ["markup-calculator", "breakeven-calculator", "roi-calculator"],
+    seo: { title: "Profit Margin Calculator | Calcify", description: "Calculate gross profit margin, net margin and markup from revenue and cost. Free profit margin calculator." },
+    publishState: "published", icon: "📉",
+  },
+  {
+    slug: "markup-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Markup Calculator", shortDescription: "Calculate selling price from cost and markup percentage or vice versa.",
+    componentKey: "MarkupCalculator", maintenanceClass: "evergreen",
+    related: ["profit-margin-calculator", "discount-calculator", "breakeven-calculator"],
+    seo: { title: "Markup Calculator — Cost to Selling Price | Calcify", description: "Calculate markup percentage, selling price from cost, or cost from selling price and margin." },
+    publishState: "published", icon: "💲",
+  },
+  {
+    slug: "breakeven-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Break-even Calculator", shortDescription: "Calculate the break-even point in units and revenue.",
+    componentKey: "BreakevenCalculator", maintenanceClass: "evergreen",
+    related: ["profit-margin-calculator", "roi-calculator", "markup-calculator"],
+    seo: { title: "Break-even Calculator — Break-even Point | Calcify", description: "Calculate break-even units and revenue from fixed costs, variable costs, and selling price." },
+    publishState: "published", icon: "⚖️",
+  },
+  {
+    slug: "inflation-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Inflation Calculator", shortDescription: "Calculate the future value of money accounting for inflation.",
+    componentKey: "InflationCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["cagr-calculator", "retirement-corpus-calculator", "savings-goal-calculator"],
+    seo: { title: "Inflation Calculator — Future Value of Money | Calcify", description: "Calculate how much your money will be worth in the future after accounting for inflation." },
+    publishState: "published", icon: "📉",
+  },
+  {
+    slug: "credit-card-payoff",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Credit Card Payoff", shortDescription: "Calculate how long to pay off your credit card balance and total interest.",
+    componentKey: "CreditCardPayoff", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["emi-calculator", "simple-interest-calculator"],
+    seo: { title: "Credit Card Payoff Calculator | Calcify", description: "Find out how long it takes to pay off your credit card debt and total interest paid with minimum or custom payments." },
+    publishState: "published", icon: "💳",
+  },
+  {
+    slug: "savings-goal-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Savings Goal Calculator", shortDescription: "Find out how much to save monthly to reach your financial goal.",
+    componentKey: "SavingsGoalCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["sip-calculator", "retirement-corpus-calculator", "emergency-fund-calculator"],
+    seo: { title: "Savings Goal Calculator | Calcify", description: "Calculate how much to save monthly to reach your target savings amount by a deadline." },
+    publishState: "published", icon: "🎯",
+  },
+  {
+    slug: "emergency-fund-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Emergency Fund Calculator", shortDescription: "Calculate your ideal emergency fund size based on monthly expenses.",
+    componentKey: "EmergencyFundCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["savings-goal-calculator", "net-worth-calculator"],
+    seo: { title: "Emergency Fund Calculator | Calcify", description: "Calculate your recommended emergency fund size based on monthly expenses and target months of coverage." },
+    publishState: "published", icon: "🛡️",
+  },
+  {
+    slug: "net-worth-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Net Worth Calculator", shortDescription: "Calculate your total net worth from assets and liabilities.",
+    componentKey: "NetWorthCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["retirement-corpus-calculator", "savings-goal-calculator"],
+    seo: { title: "Net Worth Calculator | Calcify", description: "Calculate your personal net worth by subtracting total liabilities from total assets." },
+    publishState: "published", icon: "🏆",
+  },
+  {
+    slug: "retirement-corpus-calculator",
+    type: "calculator", category: "Finance & Investment", categorySlug: "finance",
+    title: "Retirement Corpus Calculator", shortDescription: "Estimate how much corpus you need to retire comfortably.",
+    componentKey: "RetirementCorpusCalculator", maintenanceClass: "evergreen", disclaimerType: "finance",
+    related: ["sip-calculator", "inflation-calculator", "savings-goal-calculator"],
+    seo: { title: "Retirement Corpus Calculator | Calcify", description: "Calculate the retirement corpus you need based on current expenses, inflation, and expected returns." },
+    publishState: "published", icon: "🌅",
+  },
+
+  // ── Math & General ──────────────────────────────────────────────
+  {
+    slug: "age-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Age Calculator", shortDescription: "Calculate your exact age in years, months, and days.",
+    componentKey: "AgeCalculator", maintenanceClass: "evergreen",
+    related: ["date-difference-calculator", "birthday-countdown"],
+    seo: { title: "Age Calculator — Find Your Exact Age | Calcify", description: "Calculate your exact age in years, months, and days from your date of birth." },
+    publishState: "published", icon: "🎂",
+  },
+  {
+    slug: "statistics-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Statistics Calculator", shortDescription: "Calculate mean, median, mode, standard deviation and variance.",
+    componentKey: "StatisticsCalculator", maintenanceClass: "evergreen",
+    related: ["ratio-calculator", "percentage-calculator"],
+    seo: { title: "Statistics Calculator — Mean, Median, Mode, SD | Calcify", description: "Calculate mean, median, mode, standard deviation, variance and more for any dataset. Free online statistics calculator." },
+    publishState: "published", icon: "📊",
+  },
+  {
+    slug: "ratio-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Ratio Calculator", shortDescription: "Simplify ratios and solve proportions instantly.",
+    componentKey: "RatioCalculator", maintenanceClass: "evergreen",
+    related: ["fraction-calculator", "percentage-calculator"],
+    seo: { title: "Ratio Calculator — Simplify & Solve Proportions | Calcify", description: "Simplify ratios to lowest terms and solve proportions. Free online ratio and proportion calculator." },
+    publishState: "published", icon: "÷",
+  },
+  {
+    slug: "fraction-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Fraction Calculator", shortDescription: "Add, subtract, multiply, or divide fractions with simplified results.",
+    componentKey: "FractionCalculator", maintenanceClass: "evergreen",
+    related: ["ratio-calculator", "percentage-calculator", "lcm-hcf-calculator"],
+    seo: { title: "Fraction Calculator — Add, Subtract, Multiply Fractions | Calcify", description: "Perform arithmetic operations on fractions and get simplified results. Free fraction calculator." },
+    publishState: "published", icon: "½",
+  },
+  {
+    slug: "lcm-hcf-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "LCM & HCF Calculator", shortDescription: "Find the LCM and HCF/GCD of two or more numbers.",
+    componentKey: "LCMHCFCalculator", maintenanceClass: "evergreen",
+    related: ["fraction-calculator", "prime-checker", "factorial-calculator"],
+    seo: { title: "LCM & HCF Calculator — GCD | Calcify", description: "Find the LCM (Least Common Multiple) and HCF/GCD (Highest Common Factor) of any numbers." },
+    publishState: "published", icon: "🔣",
+  },
+  {
+    slug: "prime-checker",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Prime Number Checker", shortDescription: "Check if a number is prime and find all its factors.",
+    componentKey: "PrimeChecker", maintenanceClass: "evergreen",
+    related: ["factorial-calculator", "lcm-hcf-calculator"],
+    seo: { title: "Prime Number Checker — Is It Prime? | Calcify", description: "Check if any number is prime and find all its factors. Free online prime number checker." },
+    publishState: "published", icon: "🔢",
+  },
+  {
+    slug: "factorial-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Factorial Calculator", shortDescription: "Calculate factorial (n!) of any non-negative integer.",
+    componentKey: "FactorialCalculator", maintenanceClass: "evergreen",
+    related: ["permutation-combination", "prime-checker"],
+    seo: { title: "Factorial Calculator — n! | Calcify", description: "Calculate factorial of any non-negative integer. Shows step-by-step computation." },
+    publishState: "published", icon: "!",
+  },
+  {
+    slug: "quadratic-solver",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Quadratic Equation Solver", shortDescription: "Solve ax² + bx + c = 0 and find roots using the quadratic formula.",
+    componentKey: "QuadraticSolver", maintenanceClass: "evergreen",
+    related: ["pythagorean-calculator", "statistics-calculator"],
+    seo: { title: "Quadratic Equation Solver | Calcify", description: "Solve quadratic equations ax² + bx + c = 0. Shows discriminant, roots, and nature of roots." },
+    publishState: "published", icon: "📐",
+  },
+  {
+    slug: "permutation-combination",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Permutation & Combination", shortDescription: "Calculate nPr (permutations) and nCr (combinations).",
+    componentKey: "PermutationCombination", maintenanceClass: "evergreen",
+    related: ["factorial-calculator", "statistics-calculator"],
+    seo: { title: "Permutation & Combination Calculator — nPr nCr | Calcify", description: "Calculate permutations (nPr) and combinations (nCr) for any n and r values." },
+    publishState: "published", icon: "🎲",
+  },
+  {
+    slug: "pythagorean-calculator",
+    type: "calculator", category: "Math & General", categorySlug: "math",
+    title: "Pythagorean Theorem Calculator", shortDescription: "Calculate the missing side of a right triangle using a² + b² = c².",
+    componentKey: "PythagoreanCalculator", maintenanceClass: "evergreen",
+    related: ["quadratic-solver", "ratio-calculator"],
+    seo: { title: "Pythagorean Theorem Calculator | Calcify", description: "Find the missing side of a right triangle using the Pythagorean theorem a² + b² = c²." },
+    publishState: "published", icon: "📐",
+  },
+  {
+    slug: "random-number-generator",
+    type: "utility", category: "Math & General", categorySlug: "math",
+    title: "Random Number Generator", shortDescription: "Generate random numbers within a custom range.",
+    componentKey: "RandomNumberGenerator", maintenanceClass: "evergreen",
+    related: ["dice-roller", "random-picker", "coin-flip"],
+    seo: { title: "Random Number Generator | Calcify", description: "Generate one or multiple random numbers within any range. Cryptographically secure option available." },
+    publishState: "published", icon: "🎰",
+  },
+
+  // ── Date & Time ─────────────────────────────────────────────────
+  {
+    slug: "date-difference-calculator",
+    type: "calculator", category: "Date & Time", categorySlug: "date",
+    title: "Date Difference Calculator", shortDescription: "Find the exact number of days, weeks, months between two dates.",
+    componentKey: "DateDifferenceCalculator", maintenanceClass: "evergreen",
+    related: ["age-calculator", "add-subtract-days", "countdown-calculator"],
+    seo: { title: "Date Difference Calculator — Days Between Dates | Calcify", description: "Calculate the exact number of days, weeks, months, and years between any two dates." },
+    publishState: "published", icon: "📅",
+  },
+  {
+    slug: "add-subtract-days",
+    type: "calculator", category: "Date & Time", categorySlug: "date",
+    title: "Add / Subtract Days Calculator", shortDescription: "Add or subtract days, weeks, or months from any date.",
+    componentKey: "AddSubtractDays", maintenanceClass: "evergreen",
+    related: ["date-difference-calculator", "countdown-calculator"],
+    seo: { title: "Add or Subtract Days from a Date | Calcify", description: "Add or subtract days, weeks, or months from any date. Find what date falls N days from now." },
+    publishState: "published", icon: "➕",
+  },
+  {
+    slug: "unix-timestamp-converter",
+    type: "utility", category: "Date & Time", categorySlug: "date",
+    title: "Unix Timestamp Converter", shortDescription: "Convert Unix timestamps to readable dates and vice versa.",
+    componentKey: "UnixTimestampConverter", maintenanceClass: "evergreen",
+    related: ["date-difference-calculator", "add-subtract-days"],
+    seo: { title: "Unix Timestamp Converter | Calcify", description: "Convert Unix timestamps to human-readable dates and vice versa. Supports milliseconds and seconds." },
+    publishState: "published", icon: "⏱️",
+  },
+  {
+    slug: "countdown-calculator",
+    type: "utility", category: "Date & Time", categorySlug: "date",
+    title: "Countdown Calculator", shortDescription: "Calculate time remaining until any future date or event.",
+    componentKey: "CountdownCalculator", maintenanceClass: "evergreen",
+    related: ["date-difference-calculator", "add-subtract-days"],
+    seo: { title: "Countdown Calculator — Time Until Event | Calcify", description: "Calculate days, hours, minutes and seconds until any future date or event." },
+    publishState: "published", icon: "⏳",
+  },
+
+  // ── Health & Fitness ────────────────────────────────────────────
+  {
+    slug: "bmi-calculator",
+    type: "calculator", category: "Health & Fitness", categorySlug: "health",
+    title: "BMI Calculator", shortDescription: "Calculate Body Mass Index and check your weight category.",
+    componentKey: "BMICalculator", maintenanceClass: "health-disclaimer", disclaimerType: "health",
+    related: ["bmr-calculator", "tdee-calculator", "ideal-weight-calculator"],
+    seo: { title: "BMI Calculator — Body Mass Index | Calcify", description: "Calculate your BMI from height and weight. Shows BMI category and healthy range. For informational use only." },
+    publishState: "published", icon: "⚖️",
+  },
+  {
+    slug: "bmr-calculator",
+    type: "calculator", category: "Health & Fitness", categorySlug: "health",
+    title: "BMR Calculator", shortDescription: "Calculate Basal Metabolic Rate using the Mifflin-St Jeor equation.",
+    componentKey: "BMRCalculator", maintenanceClass: "health-disclaimer", disclaimerType: "health",
+    related: ["tdee-calculator", "bmi-calculator", "calorie-deficit-calculator"],
+    seo: { title: "BMR Calculator — Basal Metabolic Rate | Calcify", description: "Calculate your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation. For informational purposes only." },
+    publishState: "published", icon: "🔥",
+  },
+  {
+    slug: "tdee-calculator",
+    type: "calculator", category: "Health & Fitness", categorySlug: "health",
+    title: "TDEE Calculator", shortDescription: "Calculate Total Daily Energy Expenditure based on activity level.",
+    componentKey: "TDEECalculator", maintenanceClass: "health-disclaimer", disclaimerType: "health",
+    related: ["bmr-calculator", "bmi-calculator", "calorie-deficit-calculator"],
+    seo: { title: "TDEE Calculator — Total Daily Energy | Calcify", description: "Calculate your TDEE based on age, height, weight, and activity level. Not medical advice." },
+    publishState: "published", icon: "💪",
+  },
+  {
+    slug: "calorie-deficit-calculator",
+    type: "calculator", category: "Health & Fitness", categorySlug: "health",
+    title: "Calorie Deficit Calculator", shortDescription: "Calculate daily calorie target for weight loss or gain.",
+    componentKey: "CalorieDeficitCalculator", maintenanceClass: "health-disclaimer", disclaimerType: "health",
+    related: ["tdee-calculator", "bmr-calculator", "bmi-calculator"],
+    seo: { title: "Calorie Deficit Calculator | Calcify", description: "Calculate your daily calorie target to lose or gain weight based on TDEE and weekly goal." },
+    publishState: "published", icon: "🥗",
+  },
+  {
+    slug: "ideal-weight-calculator",
+    type: "calculator", category: "Health & Fitness", categorySlug: "health",
+    title: "Ideal Weight Calculator", shortDescription: "Estimate ideal body weight range based on height and gender.",
+    componentKey: "IdealWeightCalculator", maintenanceClass: "health-disclaimer", disclaimerType: "health",
+    related: ["bmi-calculator", "bmr-calculator"],
+    seo: { title: "Ideal Weight Calculator | Calcify", description: "Estimate ideal weight range using multiple formulas (Hamwi, Devine, Robinson, Miller). For informational use only." },
+    publishState: "published", icon: "🎽",
+  },
+  {
+    slug: "running-pace-calculator",
+    type: "calculator", category: "Health & Fitness", categorySlug: "health",
+    title: "Running Pace Calculator", shortDescription: "Calculate running pace, speed, or finish time for any distance.",
+    componentKey: "RunningPaceCalculator", maintenanceClass: "evergreen",
+    related: ["water-intake-calculator", "tdee-calculator"],
+    seo: { title: "Running Pace Calculator | Calcify", description: "Calculate running pace (min/km), speed (km/h), or finish time for any distance." },
+    publishState: "published", icon: "🏃",
+  },
+  {
+    slug: "water-intake-calculator",
+    type: "calculator", category: "Health & Fitness", categorySlug: "health",
+    title: "Water Intake Calculator", shortDescription: "Estimate daily water intake based on weight and activity level.",
+    componentKey: "WaterIntakeCalculator", maintenanceClass: "health-disclaimer", disclaimerType: "health",
+    related: ["tdee-calculator", "bmi-calculator"],
+    seo: { title: "Water Intake Calculator — Daily Hydration | Calcify", description: "Calculate recommended daily water intake based on body weight and activity level. Informational estimate only." },
+    publishState: "published", icon: "💧",
+  },
+
+  // ── Education ──────────────────────────────────────────────────
+  {
+    slug: "attendance-calculator",
+    type: "calculator", category: "Education", categorySlug: "education",
+    title: "Attendance Calculator", shortDescription: "Find how many classes you need to attend to meet your target.",
+    componentKey: "AttendanceCalculator", maintenanceClass: "evergreen",
+    related: ["cgpa-calculator", "percentage-calculator"],
+    seo: { title: "Attendance Calculator | Calcify", description: "Calculate current attendance percentage and find how many more classes you need for 75% or 80% requirement." },
+    publishState: "published", icon: "📚",
+  },
+  {
+    slug: "cgpa-calculator",
+    type: "calculator", category: "Education", categorySlug: "education",
+    title: "CGPA / GPA Calculator", shortDescription: "Calculate CGPA or GPA from subject grades and credit hours.",
+    componentKey: "CGPACalculator", maintenanceClass: "evergreen",
+    related: ["attendance-calculator", "percentage-calculator"],
+    seo: { title: "CGPA / GPA Calculator | Calcify", description: "Calculate CGPA or GPA by entering subject grades and credit hours. Includes percentage conversion." },
+    publishState: "published", icon: "🎓",
+  },
+
+  // ── Unit Converters ────────────────────────────────────────────
+  {
+    slug: "length-converter",
+    type: "calculator", category: "Unit Converters", categorySlug: "converters",
+    title: "Length Converter", shortDescription: "Convert between meters, feet, inches, km, miles and more.",
+    componentKey: "LengthConverter", maintenanceClass: "evergreen",
+    related: ["weight-converter", "area-converter", "temperature-converter"],
+    seo: { title: "Length Converter — Meters, Feet, Inches, Miles | Calcify", description: "Convert length units: meters, cm, km, inches, feet, yards, miles and nautical miles." },
+    publishState: "published", icon: "📏",
+  },
+  {
+    slug: "weight-converter",
+    type: "calculator", category: "Unit Converters", categorySlug: "converters",
+    title: "Weight Converter", shortDescription: "Convert between kg, lbs, grams, ounces, and other weight units.",
+    componentKey: "WeightConverter", maintenanceClass: "evergreen",
+    related: ["length-converter", "volume-converter"],
+    seo: { title: "Weight Converter — kg, lbs, grams, ounces | Calcify", description: "Convert weight units: kg, g, mg, lbs, ounces, stone and metric tons." },
+    publishState: "published", icon: "🏋️",
+  },
+  {
+    slug: "temperature-converter",
+    type: "calculator", category: "Unit Converters", categorySlug: "converters",
+    title: "Temperature Converter", shortDescription: "Convert between Celsius, Fahrenheit, and Kelvin.",
+    componentKey: "TemperatureConverter", maintenanceClass: "evergreen",
+    related: ["length-converter", "weight-converter"],
+    seo: { title: "Temperature Converter — °C, °F, K | Calcify", description: "Convert temperatures between Celsius, Fahrenheit, and Kelvin with formula shown." },
+    publishState: "published", icon: "🌡️",
+  },
+  {
+    slug: "area-converter",
+    type: "calculator", category: "Unit Converters", categorySlug: "converters",
+    title: "Area Converter", shortDescription: "Convert between sq meters, sq feet, acres, hectares and more.",
+    componentKey: "AreaConverter", maintenanceClass: "evergreen",
+    related: ["length-converter", "volume-converter"],
+    seo: { title: "Area Converter — sq ft, sq m, acres, hectares | Calcify", description: "Convert area units: square meters, square feet, acres, hectares, square kilometers and more." },
+    publishState: "published", icon: "🗺️",
+  },
+  {
+    slug: "volume-converter",
+    type: "calculator", category: "Unit Converters", categorySlug: "converters",
+    title: "Volume Converter", shortDescription: "Convert between liters, gallons, cups, pints, and more.",
+    componentKey: "VolumeConverter", maintenanceClass: "evergreen",
+    related: ["weight-converter", "area-converter"],
+    seo: { title: "Volume Converter — Liters, Gallons, Cups | Calcify", description: "Convert volume units: mL, L, cups, pints, quarts, gallons and cubic units." },
+    publishState: "published", icon: "🫙",
+  },
+  {
+    slug: "speed-converter",
+    type: "calculator", category: "Unit Converters", categorySlug: "converters",
+    title: "Speed Converter", shortDescription: "Convert between km/h, mph, m/s, and knots.",
+    componentKey: "SpeedConverter", maintenanceClass: "evergreen",
+    related: ["length-converter", "running-pace-calculator"],
+    seo: { title: "Speed Converter — km/h, mph, m/s, Knots | Calcify", description: "Convert speed units: km/h, mph, m/s, knots and feet per second." },
+    publishState: "published", icon: "🚀",
+  },
+  {
+    slug: "data-storage-converter",
+    type: "utility", category: "Unit Converters", categorySlug: "converters",
+    title: "Data Storage Converter", shortDescription: "Convert between bytes, KB, MB, GB, and TB.",
+    componentKey: "DataStorageConverter", maintenanceClass: "evergreen",
+    related: ["speed-converter", "color-converter"],
+    seo: { title: "Data Storage Converter — Bytes, KB, MB, GB | Calcify", description: "Convert data storage units: bits, bytes, KB, MB, GB, TB with binary and decimal prefixes." },
+    publishState: "published", icon: "💾",
+  },
+  {
+    slug: "angle-converter",
+    type: "calculator", category: "Unit Converters", categorySlug: "converters",
+    title: "Angle Converter", shortDescription: "Convert between degrees, radians, and gradians.",
+    componentKey: "AngleConverter", maintenanceClass: "evergreen",
+    related: ["pythagorean-calculator", "length-converter"],
+    seo: { title: "Angle Converter — Degrees, Radians, Gradians | Calcify", description: "Convert angles between degrees, radians, and gradians instantly." },
+    publishState: "published", icon: "📐",
+  },
+
+  // ── Text Utilities ─────────────────────────────────────────────
+  {
+    slug: "word-counter",
+    type: "utility", category: "Text Utilities", categorySlug: "text",
+    title: "Word Counter", shortDescription: "Count words, characters, sentences, and reading time.",
+    componentKey: "WordCounter", maintenanceClass: "evergreen",
+    related: ["case-converter", "slug-generator", "lorem-ipsum-generator"],
+    seo: { title: "Word Counter — Words, Characters & Reading Time | Calcify", description: "Count words, characters, sentences, paragraphs and reading time. All processing is browser-side." },
+    publishState: "published", icon: "✍️",
+  },
+  {
+    slug: "case-converter",
+    type: "utility", category: "Text Utilities", categorySlug: "text",
+    title: "Case Converter", shortDescription: "Convert text to UPPER, lower, Title, camelCase, snake_case, kebab-case.",
+    componentKey: "CaseConverter", maintenanceClass: "evergreen",
+    related: ["word-counter", "slug-generator", "remove-duplicate-lines"],
+    seo: { title: "Case Converter — UPPER, lower, Title, camelCase | Calcify", description: "Convert text between uppercase, lowercase, title case, camelCase, snake_case, and kebab-case." },
+    publishState: "published", icon: "Aa",
+  },
+  {
+    slug: "slug-generator",
+    type: "utility", category: "Text Utilities", categorySlug: "text",
+    title: "Slug Generator", shortDescription: "Convert text to SEO-friendly URL slugs.",
+    componentKey: "SlugGenerator", maintenanceClass: "evergreen",
+    related: ["case-converter", "url-encode-decode"],
+    seo: { title: "Slug Generator — Text to URL Slug | Calcify", description: "Convert any text to a clean, SEO-friendly URL slug. Handles spaces, special characters, and accents." },
+    publishState: "published", icon: "🔗",
+  },
+  {
+    slug: "lorem-ipsum-generator",
+    type: "utility", category: "Text Utilities", categorySlug: "text",
+    title: "Lorem Ipsum Generator", shortDescription: "Generate placeholder Lorem Ipsum text by paragraphs or words.",
+    componentKey: "LoremIpsumGenerator", maintenanceClass: "evergreen",
+    related: ["word-counter", "case-converter"],
+    seo: { title: "Lorem Ipsum Generator | Calcify", description: "Generate Lorem Ipsum placeholder text by number of paragraphs, sentences, or words." },
+    publishState: "published", icon: "📝",
+  },
+  {
+    slug: "remove-duplicate-lines",
+    type: "utility", category: "Text Utilities", categorySlug: "text",
+    title: "Remove Duplicate Lines", shortDescription: "Remove duplicate lines from any block of text.",
+    componentKey: "RemoveDuplicateLines", maintenanceClass: "evergreen",
+    related: ["sort-lines", "find-and-replace", "word-counter"],
+    seo: { title: "Remove Duplicate Lines — Deduplicate Text | Calcify", description: "Remove duplicate lines from text while preserving or ignoring order. Free browser-based tool." },
+    publishState: "published", icon: "🗑️",
+  },
+  {
+    slug: "sort-lines",
+    type: "utility", category: "Text Utilities", categorySlug: "text",
+    title: "Sort Lines", shortDescription: "Sort lines of text alphabetically, numerically, or by length.",
+    componentKey: "SortLines", maintenanceClass: "evergreen",
+    related: ["remove-duplicate-lines", "find-and-replace"],
+    seo: { title: "Sort Lines — Alphabetical, Numeric, Length | Calcify", description: "Sort lines of text A-Z, Z-A, numerically, or by line length. Free browser-based sorter." },
+    publishState: "published", icon: "↕️",
+  },
+  {
+    slug: "find-and-replace",
+    type: "utility", category: "Text Utilities", categorySlug: "text",
+    title: "Find & Replace", shortDescription: "Find and replace text with plain or regex patterns.",
+    componentKey: "FindAndReplace", maintenanceClass: "evergreen",
+    related: ["remove-duplicate-lines", "sort-lines", "regex-tester"],
+    seo: { title: "Find & Replace Text Online | Calcify", description: "Find and replace text with plain string or regex patterns. Supports case-sensitive, global, and multiline modes." },
+    publishState: "published", icon: "🔍",
+  },
+
+  // ── Developer Tools ─────────────────────────────────────────────
+  {
+    slug: "json-formatter",
+    type: "utility", category: "Developer Tools", categorySlug: "developer",
+    title: "JSON Formatter & Validator", shortDescription: "Format, validate, and minify JSON with syntax highlighting.",
+    componentKey: "JSONFormatter", maintenanceClass: "evergreen",
+    related: ["base64-encode-decode", "url-encode-decode", "regex-tester"],
+    seo: { title: "JSON Formatter & Validator | Calcify", description: "Format, validate and minify JSON. Syntax highlighting and error messages. Browser-side only." },
+    publishState: "published", icon: "{ }",
+  },
+  {
+    slug: "base64-encode-decode",
+    type: "utility", category: "Developer Tools", categorySlug: "developer",
+    title: "Base64 Encode / Decode", shortDescription: "Encode or decode text and URLs using Base64.",
+    componentKey: "Base64Tool", maintenanceClass: "evergreen",
+    related: ["url-encode-decode", "hash-generator", "json-formatter"],
+    seo: { title: "Base64 Encoder/Decoder | Calcify", description: "Encode text to Base64 and decode Base64 strings. All processing is browser-side." },
+    publishState: "published", icon: "🔡",
+  },
+  {
+    slug: "url-encode-decode",
+    type: "utility", category: "Developer Tools", categorySlug: "developer",
+    title: "URL Encode / Decode", shortDescription: "Encode or decode URL-safe percent-encoded strings.",
+    componentKey: "URLEncodeDecode", maintenanceClass: "evergreen",
+    related: ["base64-encode-decode", "slug-generator", "json-formatter"],
+    seo: { title: "URL Encode/Decode — Percent Encoding | Calcify", description: "Encode and decode URL strings using percent-encoding. Handles URI components correctly." },
+    publishState: "published", icon: "🌐",
+  },
+  {
+    slug: "uuid-generator",
+    type: "utility", category: "Developer Tools", categorySlug: "developer",
+    title: "UUID Generator", shortDescription: "Generate cryptographically random UUID v4 strings.",
+    componentKey: "UUIDGenerator", maintenanceClass: "evergreen",
+    related: ["hash-generator", "password-generator"],
+    seo: { title: "UUID Generator — Random UUID v4 | Calcify", description: "Generate random UUID v4 identifiers in bulk. Uses cryptographically secure random generation." },
+    publishState: "published", icon: "🔑",
+  },
+  {
+    slug: "hash-generator",
+    type: "utility", category: "Developer Tools", categorySlug: "developer",
+    title: "Hash Generator (SHA)", shortDescription: "Generate SHA-256, SHA-384, or SHA-512 hash of any text.",
+    componentKey: "HashGenerator", maintenanceClass: "evergreen",
+    related: ["uuid-generator", "base64-encode-decode"],
+    seo: { title: "Hash Generator — SHA-256, SHA-512 | Calcify", description: "Generate SHA-256, SHA-384, and SHA-512 hashes of any text using the Web Crypto API. Not for passwords." },
+    publishState: "published", icon: "#",
+  },
+  {
+    slug: "regex-tester",
+    type: "utility", category: "Developer Tools", categorySlug: "developer",
+    title: "Regex Tester", shortDescription: "Test regular expressions with real-time match highlighting.",
+    componentKey: "RegexTester", maintenanceClass: "evergreen",
+    related: ["find-and-replace", "json-formatter", "url-encode-decode"],
+    seo: { title: "Regex Tester — Test Regular Expressions | Calcify", description: "Test regular expressions with match highlighting, groups, and flags. Real-time JavaScript regex tester." },
+    publishState: "published", icon: ".*",
+  },
+  {
+    slug: "color-converter",
+    type: "utility", category: "Developer Tools", categorySlug: "developer",
+    title: "Color Converter", shortDescription: "Convert colors between HEX, RGB, HSL, and HSV formats.",
+    componentKey: "ColorConverter", maintenanceClass: "evergreen",
+    related: ["hash-generator", "url-encode-decode"],
+    seo: { title: "Color Converter — HEX, RGB, HSL | Calcify", description: "Convert color values between HEX, RGB, HSL, and HSV formats with live color preview." },
+    publishState: "published", icon: "🎨",
+  },
+
+  // ── Image Tools ─────────────────────────────────────────────────
+  {
+    slug: "image-compressor",
+    type: "utility", category: "Image Tools", categorySlug: "image",
+    title: "Image Compressor", shortDescription: "Compress JPEG and PNG images in your browser — no upload needed.",
+    componentKey: "ImageCompressor", maintenanceClass: "evergreen",
+    related: ["qr-code-generator", "base64-encode-decode"],
+    seo: { title: "Image Compressor — Compress JPEG & PNG | Calcify", description: "Compress images online for free. 100% browser-based — your images never leave your device." },
+    publishState: "published", icon: "🗜️",
+  },
+
+  // ── Generators ──────────────────────────────────────────────────
+  {
+    slug: "qr-code-generator",
+    type: "utility", category: "Generators", categorySlug: "generators",
+    title: "QR Code Generator", shortDescription: "Generate QR codes for URLs, text, or any content.",
+    componentKey: "QRCodeGenerator", maintenanceClass: "evergreen",
+    related: ["password-generator", "uuid-generator"],
+    seo: { title: "QR Code Generator — Free Online QR Creator | Calcify", description: "Generate QR codes for URLs, text, email, or phone numbers. Download as PNG." },
+    publishState: "published", icon: "⬛",
+  },
+  {
+    slug: "password-generator",
+    type: "utility", category: "Generators", categorySlug: "generators",
+    title: "Password Generator", shortDescription: "Generate secure passwords with custom length and character rules.",
+    componentKey: "PasswordGenerator", maintenanceClass: "evergreen",
+    related: ["uuid-generator", "hash-generator"],
+    seo: { title: "Password Generator — Secure Random Passwords | Calcify", description: "Generate strong, secure random passwords with custom length and character requirements using Web Crypto API." },
+    publishState: "published", icon: "🔐",
+  },
+  {
+    slug: "random-picker",
+    type: "utility", category: "Generators", categorySlug: "generators",
+    title: "Random Picker", shortDescription: "Pick one or more random items from a list.",
+    componentKey: "RandomPicker", maintenanceClass: "evergreen",
+    related: ["random-number-generator", "dice-roller", "coin-flip"],
+    seo: { title: "Random Picker — Pick from a List | Calcify", description: "Pick one or more random items from your list. Perfect for giveaways, teams, and decisions." },
+    publishState: "published", icon: "🎯",
+  },
+  {
+    slug: "dice-roller",
+    type: "utility", category: "Generators", categorySlug: "generators",
+    title: "Dice Roller", shortDescription: "Roll any dice — d4, d6, d8, d10, d12, d20, or custom.",
+    componentKey: "DiceRoller", maintenanceClass: "evergreen",
+    related: ["random-picker", "coin-flip", "random-number-generator"],
+    seo: { title: "Dice Roller — Virtual Dice | Calcify", description: "Roll virtual dice: d4, d6, d8, d10, d12, d20 or custom-sided dice. Roll multiple dice at once." },
+    publishState: "published", icon: "🎲",
+  },
+  {
+    slug: "coin-flip",
+    type: "utility", category: "Generators", categorySlug: "generators",
+    title: "Coin Flip", shortDescription: "Flip a virtual coin to get heads or tails.",
+    componentKey: "CoinFlip", maintenanceClass: "evergreen",
+    related: ["dice-roller", "random-picker", "random-number-generator"],
+    seo: { title: "Coin Flip — Virtual Heads or Tails | Calcify", description: "Flip a virtual coin and get heads or tails with animated result. Cryptographically fair." },
+    publishState: "published", icon: "🪙",
+  },
+];
+
+/** All published tools */
+export const publishedTools = TOOLS.filter((t) => t.publishState === "published");
+
+/** Get a single tool by slug */
+export function getTool(slug: string): ToolDefinition | undefined {
+  return TOOLS.find((t) => t.slug === slug);
+}
+
+export const CATEGORY_ICONS_MAP: Record<string, string> = {
+  finance: "💹",
+  math: "🔢",
+  date: "📅",
+  health: "❤️",
+  education: "🎓",
+  converters: "🔄",
+  text: "✍️",
+  developer: "⚡",
+  image: "🖼️",
+  generators: "🎲",
+};
+
+export const CATEGORY_CLASS_MAP: Record<string, string> = {
+  finance: "cat-finance",
+  math: "cat-math",
+  date: "cat-date",
+  health: "cat-health",
+  education: "cat-education",
+  converters: "cat-converters",
+  text: "cat-text",
+  developer: "cat-developer",
+  image: "cat-image",
+  generators: "cat-generators",
+};
+
+/** All unique categories (in display order) */
+const CATEGORY_ORDER = ["finance", "math", "date", "health", "education", "converters", "text", "developer", "image", "generators"];
+
+export const CATEGORIES = Array.from(
+  new Map(publishedTools.map((t) => [
+    t.categorySlug,
+    { name: t.category, slug: t.categorySlug, icon: CATEGORY_ICONS_MAP[t.categorySlug] ?? "🔧" }
+  ])).values()
+).sort((a, b) => CATEGORY_ORDER.indexOf(a.slug) - CATEGORY_ORDER.indexOf(b.slug));
+
+/** Get tools by category */
+export function getToolsByCategory(categorySlug: string): ToolDefinition[] {
+  return publishedTools.filter((t) => t.categorySlug === categorySlug);
+}
+
+// Keep backward compat
+export const CATEGORY_ICONS = CATEGORY_ICONS_MAP;
