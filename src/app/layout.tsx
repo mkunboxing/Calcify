@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 import InstallPrompt from "@/components/pwa/InstallPrompt";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -104,6 +105,7 @@ export default function RootLayout({
           {/* Bottom PWA Install Prompt Banner (Only shown on first load if not installed) */}
           <InstallPrompt />
         </ThemeProvider>
+        <Analytics />
 
         {/* Register Service Worker for PWA Offline Caching */}
         <script
